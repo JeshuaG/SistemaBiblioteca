@@ -1,6 +1,6 @@
 package controladores;
 
-
+import Modelos.UsuarioAut;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.Base64;
@@ -8,25 +8,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Aut {
-
-    private static Map<String, String[]> usuarios = new HashMap<>();
+    private static Map<String, UsuarioAut> usuarios = new HashMap<>();
 
     static {
-        String salt = generateSalt();
-        String hash = hashPassword("admin123", salt);
-        usuarios.put("admin", new String[]{salt, hash});
+        usuarios.put("admin", crearUsuario("admin123", "Administrador"));
+        usuarios.put("bibliotecario", crearUsuario("biblio123", "Bibliotecario"));
+        usuarios.put("miembro", crearUsuario("miembro123", "Miembro"));
     }
 
-    public static boolean autenticar(String usuario, String password) {
+    private static UsuarioAut crearUsuario(String password, String rol) {
+        String salt = generateSalt();
+        String hash = hashPassword(password, salt);
+        return new UsuarioAut(salt, hash, rol);
+    }
+
+    public static boolean autenticar(String usuario, String password, String rolEsperado) {
         if (!usuarios.containsKey(usuario)) return false;
 
-        String[] datos = usuarios.get(usuario);
-        String salt = datos[0];
-        String hashAlmacenado = datos[1];
+        UsuarioAut datos = usuarios.get(usuario);
+        String salt = datos.getSalt();
+        String hashAlmacenado = datos.getHash();
 
         String hashIngresado = hashPassword(password, salt);
 
-        return hashAlmacenado.equals(hashIngresado);
+        return hashAlmacenado.equals(hashIngresado) && datos.getRol().equalsIgnoreCase(rolEsperado);
     }
 
     public static String generateSalt() {
@@ -46,4 +51,3 @@ public class Aut {
         }
     }
 }
-    

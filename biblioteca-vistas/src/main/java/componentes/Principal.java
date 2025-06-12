@@ -13,13 +13,15 @@ import java.util.Locale;
 
 public class Principal extends JFrame {
 
+    private String usuario;
+    private String rolUsuario;
     private CardLayout cardLayout;
     private JPanel mainPanel;
     private String currentTheme = "FlatLaf";
-    private String userRole;
 
-    public Principal(String userRole) {
-        this.userRole = userRole;
+    public Principal(String usuario, String role) {
+        this.usuario = usuario;
+        this.rolUsuario = role;
         initializeUI();
         initializeMenuBar();
         initializePanels();
@@ -27,7 +29,7 @@ public class Principal extends JFrame {
     }
 
     private void initializeUI() {
-        setTitle("Sistema Biblioteca - " + userRole);
+        setTitle("Sistema Biblioteca - " + rolUsuario);
         setSize(1000, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -40,6 +42,25 @@ public class Principal extends JFrame {
         JMenuItem homeItem = new JMenuItem("Inicio");
         homeItem.addActionListener(e -> showPanel("Inicio"));
         menuBar.add(homeItem);
+
+        switch(rolUsuario) {
+            case "Administrador":
+                addMenuItem(menuBar, "Usuarios", "paneles.UsuarioAdmin");
+                addMenuItem(menuBar, "Libros", "paneles.LibrosAdmin");
+                addMenuItem(menuBar, "Autores", "paneles.Autores");
+                addMenuItem(menuBar, "Prestamos", "paneles.PrestamosAdmin");
+                break;
+            case "Bibliotecario":
+                addMenuItem(menuBar, "Usuarios", "paneles.UsuarioBiblio");
+                addMenuItem(menuBar, "Libros", "paneles.LibrosAdmin");
+                addMenuItem(menuBar, "Autores", "paneles.Autores");
+                addMenuItem(menuBar, "Prestamos", "paneles.PrestamosAdmin");
+                break;
+            case "Miembro":
+                addMenuItem(menuBar, "Libros", "paneles.LibrosUser");
+                addMenuItem(menuBar, "Mis Prestamos", "paneles.PrestamosUser");
+                break;
+        }
 
         menuBar.add(Box.createHorizontalGlue());
 
@@ -57,6 +78,36 @@ public class Principal extends JFrame {
         setJMenuBar(menuBar);
     }
 
+    private void addMenuItem(JMenuBar menuBar, String title, String panelClass) {
+        JMenuItem menuItem = new JMenuItem(title);
+        menuItem.addActionListener(e -> {
+            try {
+                boolean panelExists = false;
+                for (Component comp : mainPanel.getComponents()) {
+                    if (title.equals(comp.getName())) {
+                        panelExists = true;
+                        break;
+                    }
+                }
+
+                if (!panelExists) {
+                    Class<?> panelClassObj = Class.forName(panelClass);
+                    JPanel panel = (JPanel) panelClassObj.getDeclaredConstructor().newInstance();
+                    panel.setName(title);
+                    mainPanel.add(panel, title);
+                }
+
+                showPanel(title);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, 
+                    "Error al cargar el panel: " + ex.getMessage(), 
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        menuBar.add(menuItem);
+    }
+
     private void addThemeMenuItem(JMenu menu, String name, String theme) {
         JMenuItem item = new JMenuItem(name);
         item.addActionListener(e -> applyTheme(theme));
@@ -71,13 +122,8 @@ public class Principal extends JFrame {
         add(mainPanel, BorderLayout.CENTER);
     }
 
-    public void addPanel(String name, JPanel panel) {
-        panel.setName(name);
-        mainPanel.add(panel, name);
-    }
-
-    public void showPanel(String name) {
-        cardLayout.show(mainPanel, name);
+    private void showPanel(String panelName) {
+        cardLayout.show(mainPanel, panelName);
     }
 
     private void applyTheme(String theme) {
@@ -112,7 +158,7 @@ public class Principal extends JFrame {
 
         String welcomeText = "<html><div style='text-align: center; font-family: SansSerif;'>" +
                 "<h1 style='font-size: 24pt; font-weight: bold;'>Bienvenido al Sistema de Biblioteca</h1>" +
-                "<h2 style='font-size: 18pt;'>Rol: " + userRole + "</h2>" +
+                "<h2 style='font-size: 18pt;'>Usuario: " + usuario + " - Rol: " + rolUsuario + "</h2>" +
                 "<p style='font-size: 16pt;'>Hoy es " + dayName + ", " + formattedDate + "</p>" +
                 "<p>Seleccione una opción del menú superior</p>" +
                 "</div></html>";
@@ -121,5 +167,4 @@ public class Principal extends JFrame {
         panel.add(welcomeLabel, BorderLayout.CENTER);
 
         return panel;
-    }
-}
+    }}

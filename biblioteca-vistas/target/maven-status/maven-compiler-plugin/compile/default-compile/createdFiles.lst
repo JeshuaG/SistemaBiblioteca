@@ -3,6 +3,7 @@ paneles/PrestamosAdmin$DiasRestantesRenderer.class
 paneles/UsuarioBiblio.class
 paneles/Autores$3.class
 paneles/PrestamosUser.class
+Control/LoginControl.class
 paneles/LibrosUser$1.class
 paneles/PrestamosAdmin.class
 paneles/Autores$2.class
@@ -17,6 +18,6 @@ paneles/Autores$1.class
 paneles/LibrosAdmin.class
 paneles/PrestamosUser$DiasRestantesRenderer.class
 componentes/Login.class
-Control/PrinciplaControl.class
+Control/PrincipalControl.class
 paneles/Autores$JListCellRenderer.class
 paneles/LibrosAdmin$1.class

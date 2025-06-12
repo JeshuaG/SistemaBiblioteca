@@ -1,5 +1,6 @@
 package componentes;
 
+import Control.LoginControl;
 import javax.swing.*;
 import java.awt.*;
 
@@ -89,21 +90,19 @@ public class Login extends JFrame {
     }
 
     public JButton getBtnLogin() {
-        return btnLogin;
+        return btnLogin;  
     }
 
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            System.err.println("Error al establecer el look and feel: " + e.getMessage());
-        }
+public static void main(String[] args) {
+    try {
+        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    } catch (Exception e) {
+        System.err.println("Error al establecer el look and feel: " + e.getMessage());
+    } 
 
-        SwingUtilities.invokeLater(() -> {
-            Login login = new Login();
-            login.setVisible(true);
-        });
-    }
-}
-    
-
+    SwingUtilities.invokeLater(() -> {
+        Login login = new Login();
+        new LoginControl(login);
+        login.setVisible(true);
+    });
+}}

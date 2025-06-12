@@ -22,6 +22,6 @@
 </dependencies>
     <properties>
         <maven.compiler.release>23</maven.compiler.release>
-        <exec.mainClass>gt.edu.umg.jeshua.giron.biblioteca.vistas.componentes.Login</exec.mainClass>
+        <exec.mainClass>componentes.Login</exec.mainClass>
     </properties>
 </project>
