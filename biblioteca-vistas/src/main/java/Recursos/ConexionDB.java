@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Recursos;
 
 import java.sql.Connection;
@@ -14,7 +10,7 @@ import java.sql.SQLException;
  */
 public class ConexionDB {
 
-    private static final String URL = "jdbc:h2:./basedatos/biblioteca"; // crea la base en carpeta "basedatos"
+    private static final String URL = "jdbc:h2:./basedatos/biblioteca";
     private static final String USER = "sa";
     private static final String PASSWORD = ""; 
 
