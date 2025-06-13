@@ -17,7 +17,6 @@ public class InitDB {
              Statement stmt = con.createStatement()) {
 
             // Crear tabla usuarios si no existe
-            //String sql = """
             stmt.execute("""
                         
                 CREATE TABLE IF NOT EXISTS usuarios (

@@ -1,0 +1,13 @@
+/home/henry-torres/ProyectoProgra/SistemaBiblioteca/biblioteca-vistas/src/main/java/Control/LoginControl.java
+/home/henry-torres/ProyectoProgra/SistemaBiblioteca/biblioteca-vistas/src/main/java/Control/PrincipalControl.java
+/home/henry-torres/ProyectoProgra/SistemaBiblioteca/biblioteca-vistas/src/main/java/Recursos/ConexionDB.java
+/home/henry-torres/ProyectoProgra/SistemaBiblioteca/biblioteca-vistas/src/main/java/Recursos/InitDB.java
+/home/henry-torres/ProyectoProgra/SistemaBiblioteca/biblioteca-vistas/src/main/java/componentes/Login.java
+/home/henry-torres/ProyectoProgra/SistemaBiblioteca/biblioteca-vistas/src/main/java/componentes/Principal.java
+/home/henry-torres/ProyectoProgra/SistemaBiblioteca/biblioteca-vistas/src/main/java/paneles/Autores.java
+/home/henry-torres/ProyectoProgra/SistemaBiblioteca/biblioteca-vistas/src/main/java/paneles/LibrosAdmin.java
+/home/henry-torres/ProyectoProgra/SistemaBiblioteca/biblioteca-vistas/src/main/java/paneles/LibrosUser.java
+/home/henry-torres/ProyectoProgra/SistemaBiblioteca/biblioteca-vistas/src/main/java/paneles/PrestamosAdmin.java
+/home/henry-torres/ProyectoProgra/SistemaBiblioteca/biblioteca-vistas/src/main/java/paneles/PrestamosUser.java
+/home/henry-torres/ProyectoProgra/SistemaBiblioteca/biblioteca-vistas/src/main/java/paneles/UsuarioAdmin.java
+/home/henry-torres/ProyectoProgra/SistemaBiblioteca/biblioteca-vistas/src/main/java/paneles/UsuarioBiblio.java

@@ -14,7 +14,7 @@ public class Login extends JFrame {
     public Login() {
         setTitle("Inicio de Sesión - Sistema Biblioteca");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 300);
+        setSize(400, 350);
         setLocationRelativeTo(null);
         setResizable(false);
 
