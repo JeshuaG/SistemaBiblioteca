@@ -110,7 +110,6 @@ public class Autores extends JPanel {
 
         add(new JScrollPane(autorTable), BorderLayout.CENTER);
 
-        // Panel de botones
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         addButton = new JButton("Agregar");
         editButton = new JButton("Editar");

@@ -1,23 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Recursos;
 
 import java.sql.Connection;
 import java.sql.Statement;
 
-/**
- *
- * @author henry-torres
- */
+
 public class InitDB {
     public static void main(String[] args) {
         try (Connection con = ConexionDB.conectar();
              Statement stmt = con.createStatement()) {
 
-            // Crear tabla usuarios si no existe
-            //String sql = """
+        
             stmt.execute("""
                         
                 CREATE TABLE IF NOT EXISTS usuarios (
@@ -32,7 +25,6 @@ public class InitDB {
                            KEY(usuario)
                            VALUES ('admin', '1234', 'Administrador'); 
                          """);
-            // Tabla autores
             stmt.execute("""
                 CREATE TABLE IF NOT EXISTS autores (
                     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -40,7 +32,6 @@ public class InitDB {
                 );
             """);
 
-            // Tabla libros
             stmt.execute("""
                 CREATE TABLE IF NOT EXISTS libros (
                     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -52,7 +43,6 @@ public class InitDB {
                 );
             """);
 
-            // Tabla prestamos
             stmt.execute("""
                 CREATE TABLE IF NOT EXISTS prestamos (
                     id INT AUTO_INCREMENT PRIMARY KEY,
