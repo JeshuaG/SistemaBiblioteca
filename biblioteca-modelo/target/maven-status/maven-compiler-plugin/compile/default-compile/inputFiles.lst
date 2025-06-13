@@ -1,4 +1,6 @@
 /home/jgironp/NetBeansProjects/SistemaBiblioteca/biblioteca-modelo/src/main/java/Modelos/Autor.java
+/home/jgironp/NetBeansProjects/SistemaBiblioteca/biblioteca-modelo/src/main/java/Modelos/ConexionDB.java
+/home/jgironp/NetBeansProjects/SistemaBiblioteca/biblioteca-modelo/src/main/java/Modelos/DaoUsuario.java
 /home/jgironp/NetBeansProjects/SistemaBiblioteca/biblioteca-modelo/src/main/java/Modelos/Libro.java
 /home/jgironp/NetBeansProjects/SistemaBiblioteca/biblioteca-modelo/src/main/java/Modelos/Prestamo.java
 /home/jgironp/NetBeansProjects/SistemaBiblioteca/biblioteca-modelo/src/main/java/Modelos/Resena.java

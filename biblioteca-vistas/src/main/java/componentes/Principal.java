@@ -19,12 +19,12 @@ public class Principal extends JFrame {
     private JPanel mainPanel;
     private String currentTheme = "FlatLaf";
 
-    public Principal(String usuario, String role) {
+    public Principal(String usuario, String rolUsuario) {
         this.usuario = usuario;
-        this.rolUsuario = role;
+        this.rolUsuario = rolUsuario.toUpperCase(); // Asegurar mayúsculas para switch
         initializeUI();
-        initializeMenuBar();
-        initializePanels();
+        initializePanels();   // Primero crear mainPanel y cardLayout
+        initializeMenuBar();  // Luego crear menú que usa mainPanel
         applyTheme(currentTheme);
     }
 
@@ -36,6 +36,13 @@ public class Principal extends JFrame {
         setLayout(new BorderLayout());
     }
 
+    private void initializePanels() {
+        cardLayout = new CardLayout();
+        mainPanel = new JPanel(cardLayout);
+        mainPanel.add(createHomePanel(), "Inicio");
+        add(mainPanel, BorderLayout.CENTER);
+    }
+
     private void initializeMenuBar() {
         JMenuBar menuBar = new JMenuBar();
 
@@ -43,22 +50,25 @@ public class Principal extends JFrame {
         homeItem.addActionListener(e -> showPanel("Inicio"));
         menuBar.add(homeItem);
 
-        switch(rolUsuario) {
-            case "Administrador":
+        switch (rolUsuario) {
+            case "ADMINISTRADOR":
                 addMenuItem(menuBar, "Usuarios", "paneles.UsuarioAdmin");
                 addMenuItem(menuBar, "Libros", "paneles.LibrosAdmin");
                 addMenuItem(menuBar, "Autores", "paneles.Autores");
-                addMenuItem(menuBar, "Prestamos", "paneles.PrestamosAdmin");
+                addMenuItem(menuBar, "Préstamos", "paneles.PrestamosAdmin");
                 break;
-            case "Bibliotecario":
+            case "BIBLIOTECARIO":
                 addMenuItem(menuBar, "Usuarios", "paneles.UsuarioBiblio");
                 addMenuItem(menuBar, "Libros", "paneles.LibrosAdmin");
                 addMenuItem(menuBar, "Autores", "paneles.Autores");
-                addMenuItem(menuBar, "Prestamos", "paneles.PrestamosAdmin");
+                addMenuItem(menuBar, "Préstamos", "paneles.PrestamosAdmin");
                 break;
-            case "Miembro":
+            case "MIEMBRO":
                 addMenuItem(menuBar, "Libros", "paneles.LibrosUser");
-                addMenuItem(menuBar, "Mis Prestamos", "paneles.PrestamosUser");
+                addMenuItem(menuBar, "Mis Préstamos", "paneles.PrestamosUser");
+                break;
+            default:
+                System.err.println("Rol desconocido: " + rolUsuario);
                 break;
         }
 
@@ -76,6 +86,8 @@ public class Principal extends JFrame {
         menuBar.add(exitItem);
 
         setJMenuBar(menuBar);
+        menuBar.revalidate();
+        menuBar.repaint();
     }
 
     private void addMenuItem(JMenuBar menuBar, String title, String panelClass) {
@@ -100,9 +112,9 @@ public class Principal extends JFrame {
                 showPanel(title);
             } catch (Exception ex) {
                 ex.printStackTrace();
-                JOptionPane.showMessageDialog(this, 
-                    "Error al cargar el panel: " + ex.getMessage(), 
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this,
+                        "Error al cargar el panel: " + ex.getMessage(),
+                        "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
         menuBar.add(menuItem);
@@ -114,14 +126,6 @@ public class Principal extends JFrame {
         menu.add(item);
     }
 
-    private void initializePanels() {
-        cardLayout = new CardLayout();
-        mainPanel = new JPanel(cardLayout);
-
-        mainPanel.add(createHomePanel(), "Inicio");
-        add(mainPanel, BorderLayout.CENTER);
-    }
-
     private void showPanel(String panelName) {
         cardLayout.show(mainPanel, panelName);
     }
@@ -131,16 +135,19 @@ public class Principal extends JFrame {
             currentTheme = theme;
             switch (theme) {
                 case "FlatLaf":
-                    FlatLightLaf.setup();
+                    FlatLightLaf.install();
                     break;
                 case "FlatDarkLaf":
-                    FlatDarkLaf.setup();
+                    FlatDarkLaf.install();
                     break;
                 case "FlatMacLight":
-                    FlatMacLightLaf.setup();
+                    FlatMacLightLaf.install();
                     break;
                 case "FlatMacDark":
-                    FlatMacDarkLaf.setup();
+                    FlatMacDarkLaf.install();
+                    break;
+                default:
+                    FlatLightLaf.install();
                     break;
             }
             SwingUtilities.updateComponentTreeUI(this);
@@ -167,4 +174,5 @@ public class Principal extends JFrame {
         panel.add(welcomeLabel, BorderLayout.CENTER);
 
         return panel;
-    }}
+    }
+}

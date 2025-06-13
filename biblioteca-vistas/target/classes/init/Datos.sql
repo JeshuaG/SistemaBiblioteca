@@ -3,7 +3,6 @@ CREATE TABLE roles (
     nombre VARCHAR(20) NOT NULL UNIQUE
 );
 
-Tabla de usuarios
 CREATE TABLE usuarios (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(100) NOT NULL,
@@ -16,7 +15,6 @@ CREATE TABLE usuarios (
     recordar_sesion BOOLEAN DEFAULT FALSE
 );
 
-Tabla de autores
 CREATE TABLE autores (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(100) NOT NULL,
@@ -25,7 +23,6 @@ CREATE TABLE autores (
     foto VARCHAR(255)
 );
 
-Tabla de libros
 CREATE TABLE libros (
     isbn VARCHAR(20) PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
@@ -40,7 +37,6 @@ CREATE TABLE libros (
     FOREIGN KEY (autor_id) REFERENCES autores(id)
 );
 
-Tabla de préstamos
 CREATE TABLE prestamos (
     id INT PRIMARY KEY AUTO_INCREMENT,
     libro_isbn VARCHAR(20),
@@ -54,7 +50,6 @@ CREATE TABLE prestamos (
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
 );
 
-Tabla de reseñas
 CREATE TABLE resenas (
     id INT PRIMARY KEY AUTO_INCREMENT,
     libro_isbn VARCHAR(20),
@@ -66,14 +61,11 @@ CREATE TABLE resenas (
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
 );
 
-Datos iniciales
-
-Usuarios de ejemplo
 INSERT INTO usuarios (nombre, email, password, salt, rol, foto_perfil, fecha_registro, recordar_sesion)
 VALUES 
-('Admin', 'admin@biblioteca.com', 'hash1', 'salt1', 'Administrador', NULL, '2024-01-01', FALSE),
-('Biblio', 'biblio@biblioteca.com', 'hash2', 'salt2', 'Bibliotecario', NULL, '2024-02-01', FALSE),
-('Miembro', 'miembro@biblioteca.com', 'hash3', 'salt3', 'Miembro', NULL, '2024-03-01', TRUE);
+('Admin', 'admin@biblioteca.com', 'WUpNn0lAL+AR/WiWTkXNqLk+NJfHvBinGWzBAOcg4d8=', 'K4CJ3E437atpMM6lDGivpw==', 'Administrador', NULL, '2024-01-01', FALSE),
+('Biblio', 'biblio@biblioteca.com', '8/m/SrNuoJdAGMk3Ziu8oX7+4pbwT7OKG1LX6V/PzG8=', 'hhPQuXYDGdQUK/pEoMGVGQ==', 'Bibliotecario', NULL, '2024-02-01', FALSE),
+('Miembro', 'miembro@biblioteca.com', '30o2IN/B/FN5ZVKKqh3unjWNvC8Pt98PQF7Z8+DBbwU=', 'MZj+fiZIJqoIDhrRZyd8vw==', 'Miembro', NULL, '2024-03-01', TRUE);
 
 INSERT INTO autores (nombre, biografia, pais_origen, foto)
 VALUES 
@@ -92,3 +84,4 @@ VALUES
 INSERT INTO resenas (libro_isbn, usuario_id, texto, rating, fecha)
 VALUES
 ('9788497592208', 3, 'Una obra maestra del realismo mágico.', 5, '2025-06-05');
+

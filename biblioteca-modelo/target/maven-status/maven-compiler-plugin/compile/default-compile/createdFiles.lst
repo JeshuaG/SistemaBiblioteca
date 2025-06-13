@@ -1,6 +1,8 @@
 Modelos/Usuario$Rol.class
+Modelos/ConexionDB.class
 Modelos/Autor.class
 Modelos/Usuario.class
+Modelos/DaoUsuario.class
 Modelos/Resena.class
 Modelos/Libro.class
 Modelos/UsuarioAut.class
