@@ -1,6 +1,7 @@
 
 package Recursos;
 
+import Modelos.ConexionDB;
 import java.sql.Connection;
 import java.sql.Statement;
 

@@ -10,6 +10,7 @@ public class Login extends JFrame {
     private JComboBox<String> cbRol;
     private JCheckBox chkRecordar;
     private JButton btnLogin;
+   
 
     public Login() {
         setTitle("Inicio de Sesión - Sistema Biblioteca");
@@ -17,8 +18,8 @@ public class Login extends JFrame {
         setSize(400, 350);
         setLocationRelativeTo(null);
         setResizable(false);
+         initComponents();
 
-        initComponents();
     }
 
     private void initComponents() {

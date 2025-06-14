@@ -1,9 +1,13 @@
 package paneles;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
+import Modelos.Usuario;
+import controladores.UsuarioController;
 
 public class UsuarioAdmin extends JPanel {
     public JTable userTable;
@@ -14,10 +18,19 @@ public class UsuarioAdmin extends JPanel {
     public JLabel pageLabel;
     public JButton prevButton, nextButton;
     public JButton addButton, editButton, deleteButton, exportButton, importButton;
-
+ 
     public UsuarioAdmin() {
         setLayout(new BorderLayout());
         initComponents();
+        cargarDatos();
+
+        searchField.getDocument().addDocumentListener(new DocumentListener() {
+            public void insertUpdate(DocumentEvent e) { actualizarFiltro(); }
+            public void removeUpdate(DocumentEvent e) { actualizarFiltro(); }
+            public void changedUpdate(DocumentEvent e) { actualizarFiltro(); }
+        });
+
+        roleFilter.addActionListener(e -> actualizarFiltro());
     }
 
     private void initComponents() {
@@ -39,7 +52,7 @@ public class UsuarioAdmin extends JPanel {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
-            }
+            } 
         };
 
         userTable = new JTable(model);
@@ -69,5 +82,25 @@ public class UsuarioAdmin extends JPanel {
         buttonPanel.add(nextButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
+    }
+
+    public void cargarDatos() {
+        UsuarioController.cargarUsuarios(model);
+    }
+
+    private void actualizarFiltro() {
+        String textoBusqueda = searchField.getText().trim();
+        String rolSeleccionado = (String) roleFilter.getSelectedItem();
+        Usuario.Rol rol = null;
+
+        if (!"Todos".equalsIgnoreCase(rolSeleccionado)) {
+            try {
+                rol = Usuario.Rol.valueOf(rolSeleccionado.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                rol = null;
+            }
+        }
+
+        UsuarioController.filtrarUsuarios(model, textoBusqueda, rol);
     }
 }

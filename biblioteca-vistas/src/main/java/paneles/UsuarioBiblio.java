@@ -1,9 +1,13 @@
 package paneles;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
+import Modelos.Usuario;
+import controladores.UsuarioController;
 
 public class UsuarioBiblio extends JPanel {
     public JTable userTable;
@@ -18,6 +22,15 @@ public class UsuarioBiblio extends JPanel {
     public UsuarioBiblio() {
         setLayout(new BorderLayout());
         initComponents();
+        cargarDatos();
+
+        searchField.getDocument().addDocumentListener(new DocumentListener() {
+            public void insertUpdate(DocumentEvent e) { actualizarFiltro(); }
+            public void removeUpdate(DocumentEvent e) { actualizarFiltro(); }
+            public void changedUpdate(DocumentEvent e) { actualizarFiltro(); }
+        });
+
+        roleFilter.addActionListener(e -> actualizarFiltro());
     }
 
     private void initComponents() {
@@ -43,6 +56,7 @@ public class UsuarioBiblio extends JPanel {
         };
         
         userTable = new JTable(model);
+        userTable.setRowHeight(30);
         sorter = new TableRowSorter<>(model);
         userTable.setRowSorter(sorter);
 
@@ -51,8 +65,8 @@ public class UsuarioBiblio extends JPanel {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         addButton = new JButton("Agregar");
         editButton = new JButton("Editar");
-        exportButton = new JButton("Exportar");
-        importButton = new JButton("Importar");
+        exportButton = new JButton("Exportar CSV");
+        importButton = new JButton("Importar JSON");
 
         buttonPanel.add(addButton);
         buttonPanel.add(editButton);
@@ -69,5 +83,25 @@ public class UsuarioBiblio extends JPanel {
         buttonPanel.add(nextButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
+    }
+
+    public void cargarDatos() {
+        UsuarioController.cargarUsuarios(model);
+    }
+
+    private void actualizarFiltro() {
+        String textoBusqueda = searchField.getText().trim();
+        String rolSeleccionado = (String) roleFilter.getSelectedItem();
+        Usuario.Rol rol = null;
+
+        if (!"Todos".equalsIgnoreCase(rolSeleccionado)) {
+            try {
+                rol = Usuario.Rol.valueOf(rolSeleccionado.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                rol = null;
+            }
+        }
+
+        UsuarioController.filtrarUsuarios(model, textoBusqueda, rol);
     }
 }

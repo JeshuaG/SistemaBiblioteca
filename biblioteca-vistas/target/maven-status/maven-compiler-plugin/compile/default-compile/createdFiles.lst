@@ -4,12 +4,12 @@ paneles/Autores$3.class
 paneles/Autores.class
 paneles/LibrosAdmin.class
 componentes/Login.class
-Recursos/ConexionDB.class
 paneles/Autores$JListCellRenderer.class
 paneles/LibrosAdmin$1.class
 paneles/UsuarioBiblio.class
 paneles/PrestamosUser.class
 Control/LoginControl.class
+paneles/UsuarioBiblio$2.class
 paneles/LibrosUser$1.class
 paneles/PrestamosAdmin.class
 paneles/Autores$2.class
@@ -20,6 +20,7 @@ paneles/LibrosUser.class
 componentes/Principal.class
 paneles/PrestamosAdmin$1.class
 paneles/Autores$1.class
+paneles/UsuarioAdmin$2.class
 Recursos/InitDB.class
 paneles/PrestamosUser$DiasRestantesRenderer.class
 Control/PrincipalControl.class
