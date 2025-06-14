@@ -34,6 +34,16 @@ public class Principal extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
+        
+         Timer timer = new Timer(60000, e -> {
+        System.out.println("Tiempo agotado. Cerrando el programa...");
+        System.exit(0);
+    });
+    timer.setRepeats(false);
+    timer.start();
+        
+        
+        
     }
 
     private void initializePanels() {
