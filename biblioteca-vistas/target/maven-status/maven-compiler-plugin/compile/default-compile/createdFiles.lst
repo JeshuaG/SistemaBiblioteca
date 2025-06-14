@@ -11,6 +11,7 @@ paneles/PrestamosUser.class
 Control/LoginControl.class
 paneles/UsuarioBiblio$2.class
 paneles/LibrosUser$1.class
+paneles/UsuarioBiblio$2.class
 paneles/PrestamosAdmin.class
 paneles/Autores$2.class
 paneles/UsuarioAdmin.class
