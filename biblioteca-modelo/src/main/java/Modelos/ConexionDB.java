@@ -8,7 +8,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConexionDB {
-    private static final String URL = "jdbc:h2:~/data/bibliotecaDB";
+    private static final String URL = "jdbc:h2:tcp://localhost/~/data/bibliotecaDB";
     private static final String USER = "sa";
     private static final String PASSWORD = "";
 
@@ -18,16 +18,18 @@ public class ConexionDB {
         return conn;
     }
 
-    private static void ejecutarScriptSiEsNecesario(Connection conn) {
-        try {
-            // Carga el archivo desde resources/init/Datos.sql
-            RunScript.execute(conn, new InputStreamReader(
-                ConexionDB.class.getClassLoader().getResourceAsStream("init/Datos.sql")
-            ));
-        } catch (Exception e) {
-            System.err.println("❌ Error ejecutando el script SQL: " + e.getMessage());
-            // Puedes comentar el siguiente `e.printStackTrace();` si ya no deseas ver todo el stacktrace
-            e.printStackTrace();
+private static void ejecutarScriptSiEsNecesario(Connection conn) {
+    try {
+        var inputStream = ConexionDB.class.getClassLoader().getResourceAsStream("init/Datos.sql");
+        if (inputStream == null) {
+            System.err.println("No se encontró el archivo init/Datos.sql en resources.");
+            return;
         }
+
+        RunScript.execute(conn, new InputStreamReader(inputStream));
+        System.out.println("✅Script SQL ejecutado correctamente.");
+    } catch (Exception e) {
+        System.err.println("❌Error ejecutando el script SQL: " + e.getMessage());
+        e.printStackTrace();
     }
-}
+}}

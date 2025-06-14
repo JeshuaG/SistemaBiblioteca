@@ -18,20 +18,18 @@ public class UsuarioAdmin extends JPanel {
     public JLabel pageLabel;
     public JButton prevButton, nextButton;
     public JButton addButton, editButton, deleteButton, exportButton, importButton;
-
+ 
     public UsuarioAdmin() {
         setLayout(new BorderLayout());
         initComponents();
         cargarDatos();
 
-        // Filtro en tiempo real por búsqueda
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             public void insertUpdate(DocumentEvent e) { actualizarFiltro(); }
             public void removeUpdate(DocumentEvent e) { actualizarFiltro(); }
             public void changedUpdate(DocumentEvent e) { actualizarFiltro(); }
         });
 
-        // Filtro por rol
         roleFilter.addActionListener(e -> actualizarFiltro());
     }
 

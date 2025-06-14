@@ -1,9 +1,9 @@
-CREATE TABLE roles (
+CREATE TABLE IF NOT EXISTS roles (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(20) NOT NULL UNIQUE
 );
 
-CREATE TABLE usuarios (
+CREATE TABLE IF NOT EXISTS usuarios (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
@@ -15,7 +15,7 @@ CREATE TABLE usuarios (
     recordar_sesion BOOLEAN DEFAULT FALSE
 );
 
-CREATE TABLE autores (
+CREATE TABLE IF NOT EXISTS autores (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(100) NOT NULL,
     biografia TEXT,
@@ -23,7 +23,7 @@ CREATE TABLE autores (
     foto VARCHAR(255)
 );
 
-CREATE TABLE libros (
+CREATE TABLE IF NOT EXISTS libros (
     isbn VARCHAR(20) PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
     genero VARCHAR(100),
@@ -37,7 +37,7 @@ CREATE TABLE libros (
     FOREIGN KEY (autor_id) REFERENCES autores(id)
 );
 
-CREATE TABLE prestamos (
+CREATE TABLE IF NOT EXISTS prestamos (
     id INT PRIMARY KEY AUTO_INCREMENT,
     libro_isbn VARCHAR(20),
     usuario_id INT,
@@ -50,7 +50,7 @@ CREATE TABLE prestamos (
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
 );
 
-CREATE TABLE resenas (
+CREATE TABLE IF NOT EXISTS resenas (
     id INT PRIMARY KEY AUTO_INCREMENT,
     libro_isbn VARCHAR(20),
     usuario_id INT,
@@ -63,9 +63,9 @@ CREATE TABLE resenas (
 
 INSERT INTO usuarios (nombre, email, password, salt, rol, foto_perfil, fecha_registro, recordar_sesion)
 VALUES 
-('Admin', 'admin@biblioteca.com', 'WUpNn0lAL+AR/WiWTkXNqLk+NJfHvBinGWzBAOcg4d8=', 'K4CJ3E437atpMM6lDGivpw==', 'Administrador', NULL, '2024-01-01', FALSE),
-('Biblio', 'biblio@biblioteca.com', '8/m/SrNuoJdAGMk3Ziu8oX7+4pbwT7OKG1LX6V/PzG8=', 'hhPQuXYDGdQUK/pEoMGVGQ==', 'Bibliotecario', NULL, '2024-02-01', FALSE),
-('Miembro', 'miembro@biblioteca.com', '30o2IN/B/FN5ZVKKqh3unjWNvC8Pt98PQF7Z8+DBbwU=', 'MZj+fiZIJqoIDhrRZyd8vw==', 'Miembro', NULL, '2024-03-01', TRUE);
+('Admin', 'admin@biblioteca.com', 'WUpNn0lAL+AR/WiWTkXNqLk+NJfHvBinGWzBAOcg4d8=', 'K4CJ3E437atpMM6lDGivpw==', 'Administrador', NULL, '2025-01-01', FALSE),
+('Biblio', 'biblio@biblioteca.com', '8/m/SrNuoJdAGMk3Ziu8oX7+4pbwT7OKG1LX6V/PzG8=', 'hhPQuXYDGdQUK/pEoMGVGQ==', 'Bibliotecario', NULL, '2025-02-01', FALSE),
+('Miembro', 'miembro@biblioteca.com', '30o2IN/B/FN5ZVKKqh3unjWNvC8Pt98PQF7Z8+DBbwU=', 'MZj+fiZIJqoIDhrRZyd8vw==', 'Miembro', NULL, '2025-03-01', TRUE);
 
 INSERT INTO autores (nombre, biografia, pais_origen, foto)
 VALUES 
