@@ -97,7 +97,6 @@ public class UsuarioAdmin extends JPanel {
             try {
                 rol = Usuario.Rol.valueOf(rolSeleccionado.toUpperCase());
             } catch (IllegalArgumentException e) {
-                // En caso de error de mapeo
                 rol = null;
             }
         }

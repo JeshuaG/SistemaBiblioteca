@@ -8,53 +8,61 @@ import Modelos.Usuario;
 import Modelos.Usuario.Rol;
 
 public class DaoUsuario {
+
     private static final String SQL_SELECT = "SELECT id, nombre, email, rol, fecha_registro FROM usuarios";
-    
+
+    /**
+     * Retorna todos los usuarios de la base de datos.
+     */
     public static List<Usuario> listarUsuarios() {
         List<Usuario> usuarios = new ArrayList<>();
         try (Connection conn = ConexionDB.conectar();
              PreparedStatement stmt = conn.prepareStatement(SQL_SELECT);
              ResultSet rs = stmt.executeQuery()) {
-            
+
             while (rs.next()) {
                 Usuario usuario = new Usuario(
                     rs.getInt("id"),
                     rs.getString("nombre"),
                     rs.getString("email"),
-                    "", 
+                    "", // La contraseña no se carga aquí
                     Rol.valueOf(rs.getString("rol").toUpperCase()),
                     rs.getDate("fecha_registro").toLocalDate()
                 );
                 usuarios.add(usuario);
             }
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         return usuarios;
     }
-    
+
+    /**
+     * Retorna los usuarios filtrados por texto (nombre/email/id) y/o rol.
+     */
     public static List<Usuario> filtrarUsuarios(String busqueda, Rol rol) {
         List<Usuario> usuarios = new ArrayList<>();
         StringBuilder sql = new StringBuilder(SQL_SELECT);
         List<Object> parametros = new ArrayList<>();
         boolean whereAdded = false;
-        
+
         if (busqueda != null && !busqueda.isEmpty()) {
             sql.append(" WHERE (nombre LIKE ? OR email LIKE ?");
             parametros.add("%" + busqueda + "%");
             parametros.add("%" + busqueda + "%");
-            
+
             try {
                 int id = Integer.parseInt(busqueda);
                 sql.append(" OR id = ?");
                 parametros.add(id);
             } catch (NumberFormatException e) {
-                // No es un número, ignoramos la búsqueda por ID
+                // No es un número, se ignora el filtro por ID
             }
             sql.append(")");
             whereAdded = true;
         }
-        
+
         if (rol != null) {
             if (whereAdded) {
                 sql.append(" AND ");
@@ -64,10 +72,10 @@ public class DaoUsuario {
             sql.append("rol = ?");
             parametros.add(rol.toString());
         }
-        
+
         try (Connection conn = ConexionDB.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
-            
+
             for (int i = 0; i < parametros.size(); i++) {
                 if (parametros.get(i) instanceof Integer) {
                     stmt.setInt(i + 1, (Integer) parametros.get(i));
@@ -75,23 +83,25 @@ public class DaoUsuario {
                     stmt.setString(i + 1, parametros.get(i).toString());
                 }
             }
-            
+
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     Usuario usuario = new Usuario(
                         rs.getInt("id"),
                         rs.getString("nombre"),
                         rs.getString("email"),
-                        "", // Password no necesario
+                        "", // Contraseña no necesaria
                         Rol.valueOf(rs.getString("rol").toUpperCase()),
                         rs.getDate("fecha_registro").toLocalDate()
                     );
                     usuarios.add(usuario);
                 }
             }
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+
         return usuarios;
     }
 }

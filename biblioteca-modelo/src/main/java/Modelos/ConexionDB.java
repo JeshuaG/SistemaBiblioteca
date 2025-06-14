@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConexionDB {
+public class ConexionDB { 
     private static final String URL = "jdbc:h2:tcp://localhost/~/data/bibliotecaDB";
     private static final String USER = "sa";
     private static final String PASSWORD = "";
